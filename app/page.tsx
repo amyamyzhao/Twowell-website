@@ -1,70 +1,101 @@
 import Image from "next/image";
 
 const whatsappUrl = "https://wa.me/8618957372563";
+const quoteEmail =
+  "mailto:allen@twowell.net?subject=Win-Win%20Wet%20Wipes%20Solution%20Inquiry&body=Product%20or%20market%20idea%3A%0ACurrent%20challenge%3A%0APackaging%20format%3A%0AEstimated%20quantity%3A%0ADestination%20market%3A%0ATarget%20launch%20date%3A";
 
-const WhatsAppIcon = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.5 4.2 1.6 6L.2 24l6.4-1.7c1.7.9 3.6 1.4 5.5 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4Zm-8.4 18.2c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 1 1 8.4 4.7Zm5.4-7.3c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.8-.9-3-1.6-4.2-3.7-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.5 3.8 6 5.3.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4 0-.2-.3-.3-.6-.4Z" />
-  </svg>
-);
+const Arrow = () => <span aria-hidden="true">↗</span>;
 
-const ArrowIcon = () => <span aria-hidden="true">↗</span>;
+const solutions = [
+  {
+    number: "01",
+    label: "NEW PRODUCT",
+    title: "Launch a Market-Ready Wipe",
+    challenge: "You have a customer group or product idea, but no finished specification.",
+    answer: "We translate the idea into material, formula, sheet size, pack format and a production-ready sample.",
+    result: "A clear product path with fewer development loops.",
+  },
+  {
+    number: "02",
+    label: "PRODUCT UPGRADE",
+    title: "Improve an Existing Wipe",
+    challenge: "Your current wipe, formula or packaging is not meeting the market expectation.",
+    answer: "We compare the reference, identify the gap, then test practical upgrades around performance and cost.",
+    result: "A stronger offer without rebuilding the whole program.",
+  },
+  {
+    number: "03",
+    label: "RELIABLE SUPPLY",
+    title: "Scale with Better Control",
+    challenge: "You need repeatable quality, lead-time visibility and capacity for growing orders.",
+    answer: "We align the approved sample, production checkpoints, packaging files and shipment plan before scale-up.",
+    result: "More predictable delivery and easier repeat orders.",
+  },
+];
 
 const products = [
   {
     number: "01",
     title: "Shoe Cleaning Wipes",
-    text: "Portable, dual-texture and formula options developed for footwear-care brands, retailers and promotional programs.",
-    tags: ["Single sachet", "Raised dots", "Custom formula"],
-    style: "shoe",
-    packTitle: "STEP / FRESH",
-    packSub: "SHOE CLEANING WIPES",
+    text: "Portable single-use and multi-count solutions for shoe-care brands, retailers and travel programs.",
+    tags: ["Single sachet", "Raised-dot texture", "Custom cleaning formula"],
+    crop: "shot-shoe",
   },
   {
     number: "02",
     title: "Feminine Care Wipes",
-    text: "Gentle personal-care wipe programs with customizable substrate, fragrance direction and discreet pack formats.",
-    tags: ["pH-conscious options", "Single sachet", "Soft pack"],
-    style: "feminine",
-    packTitle: "SOFT / DAY",
-    packSub: "FEMININE CARE WIPES",
+    text: "Discreet, gentle product programs with customizable substrate, formula direction and packaging.",
+    tags: ["Single sachet", "Soft pack", "Gentle-care options"],
+    crop: "shot-feminine",
   },
   {
     number: "03",
     title: "Makeup Remover Wipes",
-    text: "Private-label cleansing wipes in individual or multi-count packs, shaped for beauty, travel and daily-care ranges.",
-    tags: ["Alcohol-free options", "Soft & gentle", "Resealable pack"],
-    style: "makeup",
-    packTitle: "BARE / SKIN",
-    packSub: "MAKEUP REMOVER WIPES",
+    text: "Private-label cleansing wipes for beauty, travel and daily-care ranges in flexible formats.",
+    tags: ["Resealable pack", "Soft substrate", "Formula customization"],
+    crop: "shot-makeup",
   },
 ];
 
-const customOptions = [
+const customization = [
   ["01", "Material", "Spunlace, cotton, bamboo and other substrate directions."],
-  ["02", "Size & Weight", "Sheet dimensions, GSM and folded format for your use case."],
+  ["02", "Size & Weight", "Sheet dimensions, GSM, fold and wipe count for the use case."],
   ["03", "Embossing", "Plain, pearl, mesh, weave and raised-dot texture options."],
   ["04", "Formula", "Fragrance, moisture level and ingredient direction by brief."],
-  ["05", "Packaging", "Single sachet, resealable soft pack, canister and box."],
-  ["06", "Branding", "Custom colors, graphics, logo, barcode and market copy."],
+  ["05", "Packaging", "Single sachet, resealable soft pack, canister and carton."],
+  ["06", "Branding", "Custom graphics, color, logo, barcode and market copy."],
 ];
 
-const processSteps = [
-  ["01", "Send your brief", "Product use, pack type, quantity and target market."],
-  ["02", "Confirm solution", "We align substrate, size, formula and packaging."],
-  ["03", "Sample in 7 days", "Review the physical product before bulk production."],
-  ["04", "Artwork approval", "Your print-ready design is checked and confirmed."],
-  ["05", "Mass production", "Planned lead time is around 30 days after approval."],
-  ["06", "Inspection & ship", "Final checks and export coordination for delivery."],
+const process = [
+  ["01", "Brief", "Use, pack, quantity and target market."],
+  ["02", "Solution", "Material, formula and format proposal."],
+  ["03", "Sample", "Physical sample in about 7 days."],
+  ["04", "Approval", "Sample, artwork and commercial terms."],
+  ["05", "Production", "Planned bulk lead time: 30 days."],
+  ["06", "Delivery", "Inspection, packing and shipment."],
 ];
 
 const faqs = [
-  ["What is your minimum order quantity?", "The MOQ is 10,000 pieces for individual sachets, 5,000 packs for resealable soft packs, and 5,000 canisters. Final MOQ can vary with material, formula and print requirements."],
-  ["Can you develop a fully custom wet wipe?", "Yes. Twowell supports OEM and ODM development across substrate, sheet size, embossing, formula direction, moisture level, fragrance and packaging design."],
-  ["How long does sampling and production take?", "Typical sample preparation is 7 days. Planned mass-production lead time is around 30 days after sample, formula and artwork approval."],
-  ["Can you help with packaging artwork?", "We can provide dielines and production requirements, then check your final artwork for size, print area and manufacturing feasibility before production."],
-  ["Which markets do you mainly export to?", "Our main business serves customers in Europe, North America and other developed markets. Product specifications and documentation are aligned to the buyer's requested destination and program."],
-  ["How do I receive a quotation?", "Send the product type, pack format, wipe count, size, estimated order quantity and destination market to Jacky by email or WhatsApp. A photo or reference product is also helpful."],
+  [
+    "What are your minimum order quantities?",
+    "10,000 pieces for individual sachets, 5,000 packs for resealable soft packs, and 5,000 canisters. Final MOQ depends on material, formula and print requirements.",
+  ],
+  [
+    "Can Twowell develop a fully customized wet wipe?",
+    "Yes. We support OEM and ODM development across substrate, sheet size, embossing, formula direction, moisture level, fragrance and packaging.",
+  ],
+  [
+    "How long do sampling and production take?",
+    "Typical sample preparation is 7 days. Planned mass-production lead time is around 30 days after sample, formula and artwork approval.",
+  ],
+  [
+    "Can you support packaging design?",
+    "We provide the production dimensions and check final artwork for print area and manufacturing feasibility before production.",
+  ],
+  [
+    "Which markets do you serve?",
+    "Our main export business serves customers in Europe, North America and other developed markets.",
+  ],
 ];
 
 export default function Home() {
@@ -72,7 +103,7 @@ export default function Home() {
     <main>
       <div className="topbar">
         <div className="shell topbar-inner">
-          <p>OEM &amp; ODM Wet Wipes Manufacturer · Haining, China</p>
+          <p>Win-Win Wet Wipes Solutions · OEM &amp; ODM from Haining, China</p>
           <div>
             <a href="mailto:allen@twowell.net">allen@twowell.net</a>
             <span>·</span>
@@ -83,214 +114,226 @@ export default function Home() {
 
       <header className="site-header">
         <div className="shell header-inner">
-          <a className="brand" href="#top" aria-label="Twowell home"><span className="brand-mark" aria-hidden="true" /></a>
+          <a className="brand" href="#top" aria-label="Twowell home">
+            <Image src="/assets/brand/twowell-logo-full-v2.png" alt="Twowell — Win-Win Situation" width={183} height={138} priority />
+          </a>
           <nav aria-label="Main navigation">
+            <a href="#solutions">Solutions</a>
             <a href="#products">Products</a>
-            <a href="#oem">OEM &amp; ODM</a>
-            <a href="#factory">Manufacturing</a>
+            <a href="#customization">Customization</a>
+            <a href="#manufacturing">Manufacturing</a>
             <a href="#quality">Quality</a>
-            <a href="#about">About Us</a>
           </nav>
-          <a className="header-cta" href="#quote">Get a Quote <ArrowIcon /></a>
+          <a className="button button-small" href="#contact">Build My Solution <Arrow /></a>
         </div>
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-orb hero-orb-one" />
-        <div className="hero-orb hero-orb-two" />
         <div className="shell hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow"><span /> Custom Wet Wipes Manufacturer · Since 2015</p>
-            <h1>Custom Wet Wipes,<br /><em>Ready for Your Brand.</em></h1>
-            <p className="hero-lead">From material and formula to shelf-ready packaging, Twowell helps brands and distributors launch reliable wet wipes with flexible OEM &amp; ODM support.</p>
+            <p className="eyebrow">TWOWELL · WIN-WIN SOLUTION</p>
+            <h1>Your Wet Wipes<br />Solution Partner.</h1>
+            <p className="hero-lead">
+              From a market idea to a repeatable product, we connect material, formula, packaging and manufacturing into one practical OEM &amp; ODM solution.
+            </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="#quote">Get an OEM Quote <span>→</span></a>
-              <a className="btn btn-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer"><WhatsAppIcon /> WhatsApp Jacky</a>
+              <a className="button" href="#contact">Build Your Solution <Arrow /></a>
+              <a className="text-link" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp Allen <Arrow /></a>
             </div>
-            <p className="response-note"><span /> Direct factory response within 24 hours</p>
+            <div className="hero-points" aria-label="Key service points">
+              <span>7-day sampling</span>
+              <span>Flexible OEM formats</span>
+              <span>Export-market experience</span>
+            </div>
           </div>
-
-          <div className="hero-visual" aria-label="Twowell custom wet wipes manufacturing">
-            <div className="factory-frame">
-              <Image src="/assets/factory/wet-wipe-line.jpg" alt="Twowell wet wipes production line" fill priority sizes="(max-width: 980px) 90vw, 520px" />
-              <div className="factory-label"><span>01</span><strong>In-house<br />production</strong></div>
-            </div>
-            <div className="product-stage">
-              <div className="soft-pack">
-                <span className="pack-lid" /><span className="pack-kicker">YOUR BRAND</span>
-                <strong>PURE<br />CARE</strong><small>PREMIUM WET WIPES</small><i>80 WIPES</i>
-              </div>
-              <div className="sachet sachet-one"><span>YOUR LOGO</span><strong>SHOE<br />WIPES</strong><small>ON THE GO</small></div>
-              <div className="sachet sachet-two"><span>PRIVATE LABEL</span><strong>DAILY<br />CARE</strong><small>GENTLE &amp; FRESH</small></div>
-            </div>
-            <div className="hero-badge"><strong>3</strong><span>Packaging<br />formats</span></div>
+          <div className="hero-visual">
+            <Image src="/assets/solutions/white-label-product-solutions-v2.png" alt="Twowell wet wipes solution range" fill sizes="(max-width: 900px) 100vw, 50vw" priority />
+            <div className="visual-label"><span>FROM IDEA</span><strong>TO SHELF</strong></div>
+            <p>Unbranded customization presentation</p>
           </div>
         </div>
-        <div className="shell proof-strip">
-          <div><strong>5,000 m²</strong><span>Factory Area</span></div>
+      </section>
+
+      <section className="proof-strip" aria-label="Factory facts">
+        <div className="shell proof-grid">
+          <div><strong>5,000</strong><span>m² Factory</span></div>
           <div><strong>15</strong><span>Production Lines</span></div>
           <div><strong>7 Days</strong><span>Sample Time</span></div>
-          <div><strong>5,000</strong><span>MOQ from Packs</span></div>
+          <div><strong>30 Days</strong><span>Planned Bulk Lead Time</span></div>
         </div>
       </section>
 
-      <section className="buyer-bar">
-        <div className="shell buyer-grid">
-          <p>Built for ambitious</p>
-          <div><span>01</span> Consumer Brands</div>
-          <div><span>02</span> Importers &amp; Distributors</div>
-          <div><span>03</span> Retail &amp; Private Label</div>
-        </div>
-      </section>
-
-      <section className="section products-section" id="products">
+      <section className="section solutions-section" id="solutions">
         <div className="shell">
-          <div className="section-heading heading-split">
-            <div><p className="section-kicker">What we make</p><h2>Three categories built<br />to lead your range.</h2></div>
-            <p>Product-first programs for buyers who need reliable manufacturing, flexible customization and packaging that is ready for market.</p>
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">SOLUTIONS BEFORE PRODUCTS</p><h2>Start with the business problem.</h2></div>
+            <p>B2B buyers do not only need a wipe. They need a viable product, a controllable supply plan and a partner who can make both sides win.</p>
+          </div>
+          <div className="solution-grid">
+            {solutions.map((item) => (
+              <article className="solution-card" key={item.number}>
+                <div className="card-top"><span>{item.number}</span><em>{item.label}</em></div>
+                <h3>{item.title}</h3>
+                <dl>
+                  <div><dt>Your challenge</dt><dd>{item.challenge}</dd></div>
+                  <div><dt>Twowell solution</dt><dd>{item.answer}</dd></div>
+                </dl>
+                <p className="result"><span>Result</span>{item.result}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section product-section" id="products">
+        <div className="shell">
+          <div className="section-heading split-heading light-heading">
+            <div><p className="eyebrow">FOCUS CATEGORIES</p><h2>Three routes to a stronger shelf offer.</h2></div>
+            <p>Each category is presented as a complete product direction—not an isolated package mockup.</p>
           </div>
           <div className="product-grid">
             {products.map((product) => (
-              <article className={`product-card ${product.style}`} key={product.title}>
-                <div className="product-image">
-                  <span className="product-number">{product.number}</span>
-                  <div className="product-pack">
-                    <small>YOUR BRAND</small><strong>{product.packTitle}</strong><i>{product.packSub}</i><b>20 WIPES</b>
-                  </div>
-                  <div className="wipe-sheet" aria-hidden="true" />
+              <article className="product-card" key={product.number}>
+                <div className={`product-photo ${product.crop}`}>
+                  <Image src="/assets/solutions/white-label-product-solutions-v2.png" alt={product.title} fill sizes="(max-width: 900px) 100vw, 33vw" />
+                  <span>{product.number}</span>
                 </div>
-                <div className="product-content">
-                  <h3>{product.title}</h3><p>{product.text}</p>
+                <div className="product-copy">
+                  <h3>{product.title}</h3>
+                  <p>{product.text}</p>
                   <ul>{product.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
-                  <a href="#quote">Request product options <span>→</span></a>
                 </div>
               </article>
             ))}
           </div>
-          <div className="more-products"><strong>More wet wipe programs</strong><span>Eyelid Wipes</span><span>Body Wipes</span><span>Pet Wipes</span><a href="#quote">Ask about another application <ArrowIcon /></a></div>
         </div>
       </section>
 
-      <section className="section oem-section" id="oem">
-        <div className="shell">
-          <div className="section-heading center-heading">
-            <p className="section-kicker light">Build your own product</p>
-            <h2>One partner. Every custom detail.</h2>
-            <p>Start with a clear brief or a reference sample. We turn it into a coordinated specification for production.</p>
+      <section className="section customize-section" id="customization">
+        <div className="shell customize-grid">
+          <div className="customize-photo">
+            <Image src="/assets/solutions/oem-customization-samples-v2.png" alt="Wet wipes OEM customization samples" fill sizes="(max-width: 900px) 100vw, 48vw" />
+            <div className="photo-note"><strong>6 connected choices</strong><span>One production-ready solution</span></div>
           </div>
-          <div className="custom-grid">
-            {customOptions.map(([number, title, text]) => (
-              <article className="custom-card" key={title}><span>{number}</span><div className={`custom-icon icon-${number}`} aria-hidden="true" /><h3>{title}</h3><p>{text}</p></article>
-            ))}
-          </div>
-          <div className="packaging-panel">
-            <div className="packaging-intro"><p className="section-kicker">Flexible packaging</p><h3>Choose the format that fits your channel.</h3><p>MOQ is based on your final material, printing and specification. These figures are the standard starting points.</p></div>
-            <div className="package-types">
-              <div className="package-type"><div className="mini-sachet"><span>YOUR LOGO</span><b>ONE</b></div><div><strong>Individual Sachet</strong><p>Travel, beauty, care &amp; promotional use</p><span>MOQ <b>10,000 pcs</b></span></div></div>
-              <div className="package-type"><div className="mini-soft"><i /><span>BRAND</span></div><div><strong>Resealable Soft Pack</strong><p>Everyday multi-count consumer packs</p><span>MOQ <b>5,000 packs</b></span></div></div>
-              <div className="package-type"><div className="mini-can"><i /><span>WIPES</span></div><div><strong>Canister</strong><p>High-count household or professional use</p><span>MOQ <b>5,000 canisters</b></span></div></div>
+          <div>
+            <p className="eyebrow">OEM &amp; ODM SYSTEM</p>
+            <h2>Customize what matters to the user—and the order.</h2>
+            <p className="section-intro">We coordinate the six decisions together so performance, cost, packaging and production do not work against each other.</p>
+            <div className="custom-list">
+              {customization.map(([number, title, text]) => (
+                <article key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div></article>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section factory-section" id="factory">
-        <div className="shell factory-grid">
-          <div className="factory-gallery">
-            <div className="factory-main"><Image src="/assets/factory/factory-floor.png" alt="Twowell wet wipes factory floor" fill sizes="(max-width: 980px) 90vw, 500px" /></div>
-            <div className="factory-small"><Image src="/assets/factory/packing-line.jpg" alt="Twowell wet wipes packing line" fill sizes="(max-width: 640px) 45vw, 260px" /></div>
-            <div className="since-card"><span>Since</span><strong>2015</strong><small>Wet wipes manufacturing</small></div>
+      <section className="section evidence-section">
+        <div className="shell">
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">CUSTOMIZATION EVIDENCE</p><h2>Real choices, clearly explained.</h2></div>
+            <p>These production materials show buyers the specific choices behind a finished wet-wipe program.</p>
           </div>
-          <div className="factory-copy">
-            <p className="section-kicker">Manufacturing at scale</p>
-            <h2>A factory set up for repeatable OEM delivery.</h2>
-            <p>Haining Twowell Daily Commodity Co., Ltd. develops and manufactures custom wet wipe programs for overseas brands, importers and retailers.</p>
-            <ul className="factory-points">
-              <li><span>✓</span><div><strong>Multi-format production</strong><p>Individual, soft-pack and canister formats from one manufacturing partner.</p></div></li>
-              <li><span>✓</span><div><strong>Export-oriented coordination</strong><p>Focused on customers in Europe, North America and other developed markets.</p></div></li>
-              <li><span>✓</span><div><strong>Commercially workable timing</strong><p>7-day sample target and around 30 days for planned bulk production.</p></div></li>
-            </ul>
-            <a className="text-link" href="#quote">Discuss your production plan <span>→</span></a>
+          <div className="evidence-grid">
+            <figure className="evidence-wide"><Image src="/assets/reference/raw-material-options.jpg" alt="Biodegradable, flushable, wood pulp and bamboo wet wipe material options" fill sizes="(max-width: 900px) 100vw, 50vw" /><figcaption>Material &amp; texture options</figcaption></figure>
+            <figure><Image src="/assets/reference/custom-size.jpg" alt="Custom wet wipe sheet size" fill sizes="(max-width: 900px) 100vw, 25vw" /><figcaption>Sheet size</figcaption></figure>
+            <figure><Image src="/assets/reference/custom-fragrance.jpg" alt="Custom wet wipe fragrance choices" fill sizes="(max-width: 900px) 100vw, 25vw" /><figcaption>Fragrance direction</figcaption></figure>
           </div>
         </div>
-        <div className="shell capacity-grid">
-          <div><strong>500,000,000</strong><span>Packs monthly capacity</span></div>
-          <div><strong>15</strong><span>Production lines</span></div>
-          <div><strong>5,000 m²</strong><span>Factory area</span></div>
-          <div><strong>30 Days</strong><span>Planned production</span></div>
+      </section>
+
+      <section className="section packaging-section">
+        <div className="shell packaging-grid">
+          <div className="packaging-copy">
+            <p className="eyebrow">PACKAGING SOLUTIONS</p>
+            <h2>The right format for the channel, user and MOQ.</h2>
+            <p>Choose the structure first, then align artwork, film, printing and packing around the order.</p>
+            <div className="moq-list">
+              <div><span>Individual sachet</span><strong>MOQ 10,000 pcs</strong></div>
+              <div><span>Resealable soft pack</span><strong>MOQ 5,000 packs</strong></div>
+              <div><span>Canister</span><strong>MOQ 5,000 units</strong></div>
+            </div>
+          </div>
+          <figure className="packaging-image">
+            <Image src="/assets/reference/package-styles.jpg" alt="Twowell custom wet wipes packaging styles" fill sizes="(max-width: 900px) 100vw, 52vw" />
+            <figcaption>Authorized packaging examples</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section className="section manufacturing-section" id="manufacturing">
+        <div className="shell">
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">MANUFACTURING</p><h2>Built to move from approval to repeat orders.</h2></div>
+            <p>Factory capability supports the solution, while the approved specification keeps every team aligned.</p>
+          </div>
+          <div className="factory-grid">
+            <figure className="factory-main"><Image src="/assets/factory/factory-floor.png" alt="Twowell wet wipes factory floor" fill sizes="(max-width: 900px) 100vw, 60vw" /></figure>
+            <figure><Image src="/assets/factory/wet-wipe-line.jpg" alt="Twowell wet wipes production line" fill sizes="(max-width: 900px) 100vw, 35vw" /></figure>
+            <figure><Image src="/assets/factory/packing-line.jpg" alt="Twowell wet wipes packing line" fill sizes="(max-width: 900px) 100vw, 35vw" /></figure>
+            <div className="factory-badge"><span>ESTABLISHED</span><strong>2015</strong><p>Haining, Zhejiang, China</p></div>
+          </div>
+          <div className="capacity-note"><strong>500,000,000 packs</strong><span>stated monthly production capacity</span><p>Capacity planning is confirmed against the product format and production schedule for each order.</p></div>
         </div>
       </section>
 
       <section className="section quality-section" id="quality">
         <div className="shell quality-grid">
-          <div className="quality-copy">
-            <p className="section-kicker">Quality built into the workflow</p><h2>Clear checkpoints from material to shipment.</h2>
-            <p>Every project begins with an agreed specification. Material, formula, packaging and finished-product checks are coordinated around that approved brief.</p>
-            <a className="btn btn-primary" href="#quote">Ask for documentation <span>→</span></a>
-          </div>
-          <div className="quality-checks">
-            <div><span>01</span><h3>Incoming Material</h3><p>Substrate and packaging inputs checked against the confirmed specification.</p></div>
-            <div><span>02</span><h3>Formula Records</h3><p>Batch and formula requirements documented for repeatable production.</p></div>
-            <div><span>03</span><h3>In-process Control</h3><p>Production and packing checkpoints monitored during the manufacturing run.</p></div>
-            <div><span>04</span><h3>Finished Goods</h3><p>Final appearance, packing and order checks before release for shipment.</p></div>
+          <div className="quality-copy"><p className="eyebrow">QUALITY IN PRACTICE</p><h2>Control the product at the points that change the outcome.</h2><p>Quality is not a badge on a page. It is a sequence of checks connected to the approved sample and order requirements.</p></div>
+          <div className="quality-cards">
+            <article><Image src="/assets/reference/raw-material-options.jpg" alt="Wet wipe raw material check" fill sizes="160px" /><div><span>01</span><h3>Incoming material</h3><p>Confirm substrate and packaging materials against the order specification.</p></div></article>
+            <article><Image src="/assets/reference/custom-size.jpg" alt="Wet wipe size specification" fill sizes="160px" /><div><span>02</span><h3>Sample alignment</h3><p>Use the approved size, fold, feel and product direction as the production reference.</p></div></article>
+            <article><Image src="/assets/factory/wet-wipe-line.jpg" alt="Wet wipe in-process production check" fill sizes="160px" /><div><span>03</span><h3>In-process checks</h3><p>Monitor key production and packing details during the run.</p></div></article>
+            <article><Image src="/assets/factory/packing-line.jpg" alt="Wet wipes final packing inspection" fill sizes="160px" /><div><span>04</span><h3>Final packing</h3><p>Check pack presentation and shipment readiness before dispatch.</p></div></article>
           </div>
         </div>
-        <div className="shell documentation-note"><span>i</span><p><strong>Need compliance documents?</strong> Tell us the product and destination market. Available test and technical documentation can be discussed for your specific project.</p></div>
       </section>
 
       <section className="section process-section">
         <div className="shell">
-          <div className="section-heading heading-split"><div><p className="section-kicker">How we work</p><h2>From brief to bulk<br />in six clear steps.</h2></div><p>A practical development process keeps specifications, timing and approvals visible before production begins.</p></div>
+          <div className="section-heading split-heading"><div><p className="eyebrow">WORKING TOGETHER</p><h2>One visible path from brief to delivery.</h2></div><p>Clear checkpoints make decisions easier and reduce avoidable changes late in the order.</p></div>
           <div className="process-grid">
-            {processSteps.map(([number,title,text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}
+            {process.map(([number, title, text]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{text}</p></article>)}
           </div>
+          <figure className="process-visual"><Image src="/assets/reference/custom-service-process.jpg" alt="Twowell customized service process" fill sizes="100vw" /></figure>
         </div>
       </section>
 
-      <section className="section about-section" id="about">
+      <section className="about-section">
         <div className="shell about-grid">
-          <div><p className="section-kicker light">Your China manufacturing team</p><h2>Responsive support for buyers across developed markets.</h2></div>
-          <p>Our role is more than making a wipe. We help commercial teams translate a market idea into substrate, formula, pack format and production details that a factory can execute.</p>
-          <div className="market-list"><span>EUROPE</span><span>NORTH AMERICA</span><span>OTHER DEVELOPED MARKETS</span></div>
+          <div><p className="eyebrow">WHY “WIN-WIN”</p><h2>A product only works when it works for both sides.</h2></div>
+          <p>For buyers, that means a useful product, a workable MOQ and reliable delivery. For Twowell, it means clear requirements, stable production and a partnership that can grow. Our solution process is designed around that shared outcome.</p>
+          <div className="about-mark"><Image src="/assets/brand/twowell-logo-full-v2.png" alt="Twowell Win-Win Situation" width={274} height={207} /></div>
         </div>
       </section>
 
       <section className="section faq-section">
         <div className="shell faq-grid">
-          <div className="faq-intro"><p className="section-kicker">Buyer questions</p><h2>What you may want to know first.</h2><p>For a precise answer, send Jacky your product brief and destination market.</p><a className="text-link" href="mailto:allen@twowell.net">Email Jacky <span>→</span></a></div>
-          <div className="faq-list">
-            {faqs.map(([question,answer], index) => <details key={question} open={index === 0}><summary><span>{question}</span><i>+</i></summary><p>{answer}</p></details>)}
-          </div>
+          <div><p className="eyebrow">BUYER FAQ</p><h2>Useful answers before the first quote.</h2></div>
+          <div className="faq-list">{faqs.map(([q, a]) => <details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div>
         </div>
       </section>
 
-      <section className="quote-section" id="quote">
-        <div className="shell quote-grid">
-          <div className="quote-copy">
-            <p className="section-kicker light">Start your OEM project</p>
-            <h2>Tell us what you want to put on the shelf.</h2>
-            <p>For the fastest quotation, include product type, pack format, wipe count, size, quantity and destination market.</p>
-            <div className="contact-person"><span>J</span><div><small>Your contact</small><strong>Jacky · Twowell</strong></div></div>
-          </div>
-          <div className="quote-cards">
-            <a className="contact-card whatsapp-card" href={whatsappUrl} target="_blank" rel="noreferrer"><WhatsAppIcon /><div><span>Fastest response</span><strong>Chat on WhatsApp</strong><small>+86 189 5737 2563</small></div><b>↗</b></a>
-            <a className="contact-card" href="mailto:allen@twowell.net?subject=Custom%20Wet%20Wipes%20OEM%20Inquiry&amp;body=Product%20type%3A%0APackaging%20format%3A%0AWipe%20size%20and%20count%3A%0AEstimated%20quantity%3A%0ADestination%20market%3A%0AOther%20requirements%3A"><span className="mail-icon">@</span><div><span>Send your specification</span><strong>Email your RFQ</strong><small>allen@twowell.net</small></div><b>↗</b></a>
-            <p className="quote-note"><span>✓</span> Your product details are used only to prepare the requested quotation.</p>
+      <section className="contact-section" id="contact">
+        <div className="shell contact-grid">
+          <div><p className="eyebrow">START WITH YOUR CHALLENGE</p><h2>What are you trying to launch, improve or scale?</h2><p>Send the product idea, pack format, estimated quantity, destination market and target date. Allen will help turn it into a practical next step.</p></div>
+          <div className="contact-card">
+            <p>DIRECT CONTACT</p><h3>Allen</h3>
+            <a href="mailto:allen@twowell.net">allen@twowell.net</a>
+            <a href="tel:+8618957372563">+86 189 5737 2563</a>
+            <div><a className="button" href={quoteEmail}>Send My Brief <Arrow /></a><a className="button button-outline" href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp <Arrow /></a></div>
           </div>
         </div>
       </section>
 
       <footer>
-        <div className="shell footer-main">
-          <div className="footer-brand"><a className="brand footer-logo" href="#top"><span className="brand-mark" /></a><p>Custom wet wipes OEM &amp; ODM manufacturing for brands, distributors and retailers.</p></div>
-          <div><strong>Explore</strong><a href="#products">Products</a><a href="#oem">OEM &amp; ODM</a><a href="#factory">Manufacturing</a><a href="#quality">Quality</a></div>
-          <div><strong>Contact</strong><a href="mailto:allen@twowell.net">allen@twowell.net</a><a href="tel:+8618957372563">+86 189 5737 2563</a><a href={whatsappUrl}>WhatsApp Jacky</a></div>
-          <div><strong>Factory</strong><p>Haining Twowell Daily Commodity Co., Ltd.</p><p>No. 1 Tangnan West Road<br />Haining, Zhejiang, China 314400</p></div>
+        <div className="shell footer-grid">
+          <div className="footer-brand"><Image src="/assets/brand/twowell-logo-full-v2.png" alt="Twowell — Win-Win Situation" width={183} height={138} /><p>Haining Twowell Daily Commodity Co., Ltd.</p></div>
+          <div><strong>Solutions</strong><a href="#products">Product Categories</a><a href="#customization">OEM &amp; ODM</a><a href="#manufacturing">Manufacturing</a></div>
+          <div><strong>Contact Allen</strong><a href="mailto:allen@twowell.net">allen@twowell.net</a><a href="tel:+8618957372563">+86 189 5737 2563</a><a href={whatsappUrl} target="_blank" rel="noreferrer">WhatsApp</a></div>
         </div>
-        <div className="shell footer-bottom"><span>© 2026 Twowell. All rights reserved.</span><span>WIN-WIN SITUATION</span></div>
+        <div className="shell footer-bottom"><span>© 2026 Twowell. All rights reserved.</span><span>Wet Wipes OEM &amp; ODM · Win-Win Solution</span></div>
       </footer>
-
-      <a className="floating-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Contact Jacky on WhatsApp"><WhatsAppIcon /><span>WhatsApp</span></a>
     </main>
   );
 }

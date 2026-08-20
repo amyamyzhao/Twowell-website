@@ -19,8 +19,10 @@ test("renders the Twowell B2B homepage", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /Twowell \| Custom Wet Wipes Manufacturer/);
-  assert.match(html, /Custom Wet Wipes/);
+  assert.match(html, /Twowell \| Win-Win Wet Wipes Solutions/);
+  assert.match(html, /Your Wet Wipes/);
+  assert.match(html, /Solution Partner/);
+  assert.match(html, /Start with the business problem/);
   assert.match(html, /Shoe Cleaning Wipes/);
   assert.match(html, /Feminine Care Wipes/);
   assert.match(html, /Makeup Remover Wipes/);

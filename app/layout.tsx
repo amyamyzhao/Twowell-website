@@ -7,8 +7,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = incomingHeaders.get("x-forwarded-host") ?? incomingHeaders.get("host") ?? "localhost:3000";
   const protocol = incomingHeaders.get("x-forwarded-proto") ?? (host.includes("localhost") ? "http" : "https");
   const baseUrl = `${protocol}://${host}`;
-  const title = "Twowell | Custom Wet Wipes Manufacturer";
-  const description = "Private label wet wipes OEM & ODM manufacturing for shoe care, feminine care and makeup removal brands.";
+  const title = "Twowell | Win-Win Wet Wipes Solutions";
+  const description = "Wet wipes OEM & ODM solutions from product idea to repeatable supply for shoe care, feminine care and makeup removal brands.";
 
   return {
     metadataBase: new URL(baseUrl),
@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       url: baseUrl,
-      images: [{ url: `${baseUrl}/og.png`, width: 1200, height: 630, alt: "Twowell custom wet wipes manufacturing" }],
+      images: [{ url: `${baseUrl}/og.png`, width: 1200, height: 630, alt: "Twowell Win-Win wet wipes solutions" }],
     },
     twitter: { card: "summary_large_image", title, description, images: [`${baseUrl}/og.png`] },
   };
