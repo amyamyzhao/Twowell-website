@@ -1,4 +1,5 @@
 import { cloudflare } from "@cloudflare/vite-plugin";
+import { imagesOptimizer } from "@vinext/cloudflare/images/images-optimizer";
 import vinext from "vinext";
 import { defineConfig } from "vite";
 
@@ -17,7 +18,7 @@ export default defineConfig(() => {
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
     plugins: [
-      vinext(),
+      vinext({ images: { optimizer: imagesOptimizer() } }),
       cloudflare({
         viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
       }),

@@ -1,9 +1,22 @@
 "use client";
 
 import Image from "next/image";
+import { useState, type FormEvent } from "react";
 import CustomizationConfigurator from "./CustomizationConfigurator";
 
-const whatsappUrl = "https://wa.me/8618957372563";
+const whatsappNumber = "8618957372563";
+const buildWhatsAppUrl = (message: string) =>
+  "https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(message);
+const whatsappUrl = buildWhatsAppUrl([
+  "Hello Allen, I found Twowell's website and would like to discuss a custom wet wipes project.",
+  "",
+  "Product / application:",
+  "Packaging format:",
+  "Estimated quantity:",
+  "Destination market:",
+  "Target launch date:",
+].join("\n"));
+const web3FormsAccessKey = "aebf155f-6a24-4342-bd99-f0c8b5632d81";
 const quoteEmail =
   "mailto:allen@twowell.net?subject=Win-Win%20Wet%20Wipes%20Solution%20Inquiry&body=Product%20or%20market%20idea%3A%0ACurrent%20challenge%3A%0APackaging%20format%3A%0AEstimated%20quantity%3A%0ADestination%20market%3A%0ATarget%20launch%20date%3A";
 
@@ -104,6 +117,49 @@ const faqs = [
 ];
 
 export default function Home() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<{ kind: "success" | "error"; message: string } | null>(null);
+  const [successWhatsAppUrl, setSuccessWhatsAppUrl] = useState(whatsappUrl);
+
+  async function submitInquiry(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (isSubmitting) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    setIsSubmitting(true);
+    setFormStatus(null);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json();
+      if (!response.ok || result.success !== true) throw new Error("Web3Forms rejected the inquiry");
+
+      const submittedWhatsAppMessage = [
+        "Hello Allen, I just submitted an inquiry on the Twowell website and would like to continue the discussion on WhatsApp.",
+        "",
+        "Name: " + String(formData.get("name") || "Not provided"),
+        "Company: " + String(formData.get("company") || "Not provided"),
+        "Product: " + String(formData.get("product") || "Not provided"),
+        "Packaging: " + String(formData.get("packaging") || "Not decided yet"),
+        "Estimated quantity: " + String(formData.get("quantity") || "Not provided"),
+        "Destination market: " + String(formData.get("market") || "Not provided"),
+        "Project brief: " + String(formData.get("message") || "Not provided"),
+      ].join("\n");
+      setSuccessWhatsAppUrl(buildWhatsAppUrl(submittedWhatsAppMessage));
+      form.reset();
+      setFormStatus({ kind: "success", message: "Thank you. Your request has been sent successfully." });
+    } catch {
+      setFormStatus({ kind: "error", message: "We couldn't send your request. Please try again or email Allen directly." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <main>
       <div className="topbar">
@@ -120,7 +176,7 @@ export default function Home() {
       <header className="site-header">
         <div className="shell header-inner">
           <a className="brand" href="#top" aria-label="Twowell home">
-            <Image src="/assets/brand/twowell-logo-transparent.png" alt="Twowell — Win-Win Situation" width={1162} height={864} priority />
+            <Image src="/assets/brand/twowell-logo-transparent.png" alt="Twowell — Win-Win Situation" width={1162} height={864} />
           </a>
           <nav aria-label="Main navigation">
             <a href="#solutions">Solutions</a>
@@ -327,24 +383,46 @@ export default function Home() {
               <a className="whatsapp-icon contact-whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer" aria-label="Chat with Allen on WhatsApp"><WhatsAppIcon /></a>
             </div>
           </div>
-          <form className="inquiry-form" action="https://formsubmit.co/allen@twowell.net" method="POST">
-            <input type="hidden" name="_subject" value="New Twowell Website Inquiry" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input className="form-honey" type="text" name="_honey" tabIndex={-1} autoComplete="off" />
-            <div className="form-heading"><span>REQUEST A SOLUTION</span><strong>Tell Us What You Need.</strong></div>
-            <div className="form-grid">
-              <label><span>Your Name *</span><input name="name" type="text" required placeholder="Name" /></label>
-              <label><span>Work Email *</span><input name="email" type="email" required placeholder="name@company.com" /></label>
-              <label><span>Company</span><input name="company" type="text" placeholder="Company name" /></label>
-              <label><span>Product Interest *</span><select name="product" required defaultValue=""><option value="" disabled>Select a category</option><option>Shoe Cleaning Wipes</option><option>Household Cleaning Wipes</option><option>Body Wipes</option><option>Baby Wipes</option><option>Feminine Care Wipes</option><option>Makeup Remover Wipes</option><option>Eyelid Wipes</option><option>Nail Polish Remover Wipes</option><option>Sunscreen Wipes</option><option>Gym Wipes</option><option>Mosquito Repellent Wipes</option><option>Lens Wipes</option><option>Other Custom Wipes</option></select></label>
-              <label><span>Packaging Format</span><select name="packaging" defaultValue=""><option value="">Not decided yet</option><option>Individual Sachet</option><option>Resealable Soft Pack</option><option>Canister</option><option>Other</option></select></label>
-              <label><span>Estimated Quantity</span><input name="quantity" type="text" placeholder="e.g. 10,000 packs" /></label>
-              <label className="form-wide"><span>Destination Market</span><input name="market" type="text" placeholder="Country / region" /></label>
-              <label className="form-wide"><span>Your Brief *</span><textarea name="message" required rows={4} placeholder="Use case, formula direction, sheet size, pack idea and target launch date" /></label>
-            </div>
-            <button className="button form-submit" type="submit">Request My Wipes Solution <Arrow /></button>
-            <p className="form-note">Or email <a href={quoteEmail}>allen@twowell.net</a>. We usually reply within one business day.</p>
+          <form className="inquiry-form" action="https://api.web3forms.com/submit" method="POST" onSubmit={submitInquiry}>
+            <input type="hidden" name="access_key" value={web3FormsAccessKey} />
+            <input type="hidden" name="subject" value="New Twowell Website Inquiry" />
+            <input type="hidden" name="from_name" value="Twowell Website" />
+            <input className="form-honey" type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+            {formStatus?.kind === "success" ? (
+              <div className="form-success" role="status" aria-live="polite">
+                <div className="form-success-check" aria-hidden="true">✓</div>
+                <span className="form-success-kicker">REQUEST RECEIVED</span>
+                <h3>Thank You. Your Brief Is on Its Way.</h3>
+                <p>Allen will review your product, packaging and market requirements and reply within one business day.</p>
+                <div className="form-success-next">
+                  <strong>Want a faster conversation?</strong>
+                  <span>Your inquiry details are ready in a WhatsApp message. You can edit them before sending.</span>
+                </div>
+                <div className="form-success-actions">
+                  <a className="button form-success-whatsapp" href={successWhatsAppUrl} target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon /> Message Allen on WhatsApp <Arrow />
+                  </a>
+                  <button className="form-success-reset" type="button" onClick={() => setFormStatus(null)}>Send Another Inquiry</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div className="form-heading"><span>REQUEST A SOLUTION</span><strong>Tell Us What You Need.</strong></div>
+                <div className="form-grid">
+                  <label><span>Your Name *</span><input name="name" type="text" required placeholder="Name" /></label>
+                  <label><span>Work Email *</span><input name="email" type="email" required placeholder="name@company.com" /></label>
+                  <label><span>Company</span><input name="company" type="text" placeholder="Company name" /></label>
+                  <label><span>Product Interest *</span><select name="product" required defaultValue=""><option value="" disabled>Select a category</option><option>Shoe Cleaning Wipes</option><option>Household Cleaning Wipes</option><option>Body Wipes</option><option>Baby Wipes</option><option>Feminine Care Wipes</option><option>Makeup Remover Wipes</option><option>Eyelid Wipes</option><option>Nail Polish Remover Wipes</option><option>Sunscreen Wipes</option><option>Gym Wipes</option><option>Mosquito Repellent Wipes</option><option>Lens Wipes</option><option>Other Custom Wipes</option></select></label>
+                  <label><span>Packaging Format</span><select name="packaging" defaultValue=""><option value="">Not decided yet</option><option>Individual Sachet</option><option>Resealable Soft Pack</option><option>Canister</option><option>Other</option></select></label>
+                  <label><span>Estimated Quantity</span><input name="quantity" type="text" placeholder="e.g. 10,000 packs" /></label>
+                  <label className="form-wide"><span>Destination Market</span><input name="market" type="text" placeholder="Country / region" /></label>
+                  <label className="form-wide"><span>Your Brief *</span><textarea name="message" required rows={4} placeholder="Use case, formula direction, sheet size, pack idea and target launch date" /></label>
+                </div>
+                <button className="button form-submit" type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending…" : "Request My Wipes Solution"} {!isSubmitting && <Arrow />}</button>
+                {formStatus?.kind === "error" && <p className="form-status is-error" role="alert">{formStatus.message}</p>}
+                <p className="form-note">Or email <a href={quoteEmail}>allen@twowell.net</a>. We usually reply within one business day.</p>
+              </>
+            )}
           </form>
         </div>
       </section>

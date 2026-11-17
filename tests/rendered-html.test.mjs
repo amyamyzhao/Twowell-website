@@ -75,7 +75,10 @@ test("renders the Twowell B2B homepage", async () => {
   assert.match(html, /500,000,000/);
   assert.match(html, /allen@twowell\.net/);
   assert.match(html, /8618957372563/);
-  assert.match(html, /formsubmit\.co\/allen@twowell\.net/);
+  assert.match(html, /wa\.me\/8618957372563\?text=/);
+  assert.match(html, /https:\/\/api\.web3forms\.com\/submit/);
+  assert.match(html, /name="access_key" value="aebf155f-6a24-4342-bd99-f0c8b5632d81"/);
+  assert.doesNotMatch(html, /formsubmit\.co/);
   assert.match(html, /WhatsApp/);
   assert.doesNotMatch(html, />WhatsApp(?: Allen)?</);
   assert.match(html, /https:\/\/www\.twowellwipes\.com\/assets\/hero\/twowell-home-banner-copy-v2\.png/);

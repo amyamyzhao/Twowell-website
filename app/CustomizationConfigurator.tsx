@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const decisions = [
@@ -42,17 +43,17 @@ const decisions = [
 ];
 
 const fragranceOptions = [
-  ["fragrance-daisy.png", "DAISY"],
-  ["fragrance-aloe-vera.png", "ALOE VERA"],
-  ["fragrance-lavender.png", "LAVENDER"],
-  ["fragrance-lemon.png", "LEMON"],
-];
+  ["fragrance-daisy.png", "DAISY", 208, 226],
+  ["fragrance-aloe-vera.png", "ALOE VERA", 237, 159],
+  ["fragrance-lavender.png", "LAVENDER", 131, 197],
+  ["fragrance-lemon.png", "LEMON", 228, 198],
+] as const;
 
 const packagingOptions = [
-  ["package-soft-pack.png", "SOFT PACK", "Real soft pack format"],
-  ["package-canister.png", "CANISTER", "Real canister format"],
-  ["package-sachet-carton.png", "SACHET + CARTON", "Real sachet and carton format"],
-];
+  ["package-soft-pack.png", "SOFT PACK", "Real soft pack format", 170, 95],
+  ["package-canister.png", "CANISTER", "Real canister format", 224, 176],
+  ["package-sachet-carton.png", "SACHET + CARTON", "Real sachet and carton format", 232, 182],
+] as const;
 
 function RailThumb({ kind }: { kind: string }) {
   if (kind === "size") return <span className="decision-size-thumb" aria-hidden="true" />;
@@ -119,11 +120,11 @@ export default function CustomizationConfigurator() {
       <div className="decision-stage" role="tabpanel" aria-live="polite">
         <div className="decision-stage-visual">
           <div className={`decision-visual is-${active.kind}`} key={active.number}>
-            {active.kind === "material" && <img className="decision-material-art" src="/assets/configurator-v22/01-user-final.png" alt="Twowell material and texture customization options" />}
+            {active.kind === "material" && <Image className="decision-material-art" src="/assets/configurator-v22/01-user-final.png" alt="Twowell material and texture customization options" width={2160} height={1000} sizes="(max-width: 900px) 100vw, 66vw" />}
 
             {active.kind === "size" && (
               <div className="decision-size-artboard">
-                <img className="decision-size-art" src="/assets/configurator-v22/02-user-final.png" alt="Twowell custom wipe sizes and material textures" />
+                <Image className="decision-size-art" src="/assets/configurator-v22/02-user-final.png" alt="Twowell custom wipe sizes and material textures" width={2160} height={1000} sizes="(max-width: 900px) 100vw, 66vw" />
                 <span className="decision-size-prompt">Custom your own size</span>
                 <div className="decision-size-options"><span>15 × 20 CM<small>5.9 × 7.9 IN</small></span><span>18 × 18 CM<small>7.1 × 7.1 IN</small></span><span>18 × 20 CM<small>7.1 × 7.9 IN</small></span><b>CUSTOM SIZE</b></div>
                 <div className="decision-gsm-panel"><span>NONWOVEN BASIS WEIGHT</span><strong>CUSTOM GSM</strong><div><b>___</b><span>g/m²</span></div><div className="decision-gsm-gauge"><span>LIGHT</span><i /><span>MEDIUM</span><i /><span>HEAVY</span></div><p>Select the GSM for the required softness, strength and absorbency.</p></div>
@@ -132,13 +133,13 @@ export default function CustomizationConfigurator() {
 
             {active.kind === "formula" && (
               <div className="decision-fragrance-grid">
-                {fragranceOptions.map(([file, label]) => <article key={file}><img src={`/assets/configurator-v22/${file}`} alt={`${label.toLowerCase()} fragrance`} /><span>{label}</span></article>)}
+                {fragranceOptions.map(([file, label, width, height]) => <article key={file}><Image src={`/assets/configurator-v22/${file}`} alt={`${label.toLowerCase()} fragrance`} width={width} height={height} sizes="(max-width: 900px) 45vw, 20vw" /><span>{label}</span></article>)}
               </div>
             )}
 
             {active.kind === "packaging" && (
               <div className="decision-packaging-grid">
-                {packagingOptions.map(([file, label, alt]) => <article key={file}><img src={`/assets/configurator-v22/${file}`} alt={alt} /><span>{label}</span></article>)}
+                {packagingOptions.map(([file, label, alt, width, height]) => <article key={file}><Image src={`/assets/configurator-v22/${file}`} alt={alt} width={width} height={height} sizes="(max-width: 900px) 30vw, 20vw" /><span>{label}</span></article>)}
               </div>
             )}
           </div>
